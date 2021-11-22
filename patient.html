@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Document</title>
+<style>
+    body {
+        background: linear-gradient(to right, #32AFA9, #A4D4AE);
+    }
+</style>
+</head>
+<body>
+    <a href="index.html" type="button" class="btn btn-danger text-white position-absolute top-0 end-0">Back to Log in Page &#8594;</a>
+    <div class="container mt-5 border border-white shadow-lg rounded bg-white">
+        <form class="row g-3 p-5 pt-4" method="get" onsubmit="return sub()" name="patientformRecord">
+            <h2 class="col-lg-12 pt-4">Patient Form</h2>
+            <div class="col-lg-4">
+            <input type="text" class="form-control" id="fName" required>
+            <label for="fName" class="form-label fw-bold">First Name</label>
+            </div>
+            <div class="col-lg-4">
+            <input type="text" class="form-control" id="mName" required>
+            <label for="mName" class="form-label fw-bold">Middle Name</label>
+            </div>
+            <div class="col-lg-4">
+                <input type="text" class="form-control" id="lName" required>
+                <label for="lName" class="form-label fw-bold">Last Name</label>
+            </div>
+            <div class="col-12">
+            <input type="text" class="form-control" id="inputAddress" required>
+            <label for="inputAddress" class="form-label fw-bold">Address</label>
+            </div>
+            <div class="col-lg-1">
+            <label for="bDate" class="form-label fw-bold">Birthdate</label>
+            </div>
+            <div class="col-lg-3">
+                <input type="date" class="form-control" id="bDate" min="1840-01-01" max="2021-10-01" required>
+            </div>
+            <div class="col-lg-1">
+                <label for="pNum" class="form-label fw-bold">Contact No</label>
+            </div>
+            <div class="col-lg-4">
+                <input type="number" class="form-control" name="pNum" id="contactNumber" required>
+            </div>
+            <div class="col-lg-1">
+                <label for="gender" class="form-label fw-bold">Gender:</label><br>
+            </div>
+            <div class="col-lg-2">
+                <input class="form-check-input" type="radio" name="gender" id="gder" value="male" required> Male &nbsp;
+                <input class="form-check-input col-md-4" type="radio" name="gender" id="gder" value="female"> Female
+            </div>
+            <div class="col-lg-12 py-2"><hr></div>
+            <div class="col-lg-2">
+                <label for="mh" class="form-label fw-bold">Medical History:</label>
+            </div>
+                <div class="form-check col-lg-2">
+                    <input class="form-check-input" type="checkbox" value="asthma" name="mh">Asthma <br>
+                    <input class="form-check-input" type="checkbox" value="cancer" name="mh">Cancer <br>
+                    <input class="form-check-input" type="checkbox" value="cardiacDisease" name="mh">Cardiac Disease <br>
+                    <input class="form-check-input" type="checkbox" value="diabetes" name="mh">Diabetes <br>
+                </div>
+                <div class="form-check col-lg-2" >
+                    <input class="form-check-input" type="checkbox" value="hypertension" name="mh">Hypertension <br>
+                    <input class="form-check-input" type="checkbox" value="psychiatricDisorder" name="mh">Psychiatric Disorder <br>
+                    <input class="form-check-input" type="checkbox" value="epilepsy" name="mh">Epilepsy <br>
+                    <input class="form-check-input" type="checkbox" value="others" name="mh">Others <br>              
+                </div>
+                <div class="col-lg-2">
+                        <label for="currentSymptoms" class="form-label fw-bold">Current Symptoms:</label>
+                </div>
+                <div class="col-lg-4">
+                    <select id="currentSymptoms" class="form-select" multiple required>
+                        <option value="Chest Pain">Chest Pain</option>
+                        <option value="Respiratory">Respiratory</option>
+                        <option value="Hematological">Hematological</option>
+                        <option value="Lympathic">Lympathic</option>
+                        <option value="Neurological">Neurological</option>
+                        <option value="Psychiatric">Psychiatric</option>
+                        <option value="Gastrointestinal">Gastrointestinal</option>
+                        <option value="Weight Loss">Weight Loss</option>
+                    </select>
+                </div>
+                <div class="col-lg-12 pt-4">
+                    <label for="medications" class="form-label">
+                        <b>Are you currently taking medications?</b><br>
+                        <span class="fst-italic">(If yes, please provide what medications you're taking.)</span>
+                    </label><br>
+                    <input type="radio" name="medications" value="yes" id="meds" onclick="medP(this)">
+                    <label for="yes">Yes</label><br>
+                    <input type="radio" name="medications" value="no" id="meds" onclick="medP(this)">
+                    <label for="no">No</label>
+                    <input type="text" class="form-control" id="distxt" disabled>
+                </div>
+            <div class="col-lg-12 pt-4 text-center">
+            <button type="submit" class="btn btn-primary" id="subForm">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+        </form>
+    </div>
+<br>
+    <div class="container pt-5 bg-white shadow-lg rounded">
+    <button id="listBtn" class="btn btn-info text-white">Patient List</button>
+    <div class="table-responsive table-caption">
+        <caption>Click 'Patient List' button to show Local Storage data</caption>
+        <table class="table table-bordered" id="patientListTable" border="1">
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Address</th>
+                <th>Birthdate</th>
+                <th>Contact No.</th>
+                <th>Gender</th>
+                <th>Medical History</th>
+                <th>Current Symptoms</th>
+                <th>Taking Medications?</th>
+                <th>If Yes</th>
+            </tr>
+        </table>
+    </div>
+    
+    <div id="display">
+        <pre></pre>
+    </div>
+    </div>
+
+<script>
+    sub = () => {
+        var contact = document.getElementById("contactNumber").value;
+        if(!/^(09|639)\d{9}$/.test(contact)) {
+            alert("Please enter phone number. Starts (09 or 639) plus (9) digit number");
+            return false;
+        }
+        else {
+            alert("Data successfully recorded");
+            addpatientRecord();
+            return true;
+        }
+    }
+
+
+    let patientRecords =[];
+    function addpatientRecord(){
+
+        const genderChoice = document.querySelectorAll("input[name = 'gender']");
+        let gen;
+        for (const c of genderChoice) {
+            if (c.checked) {
+                    gen = c.value;
+                    break;
+            }
+        }
+
+        const chk = document.querySelectorAll("input[name='mh']:checked");
+        let chkValue=[];
+            for (const c of chk) {
+                if (c.checked) {
+                chkValue.push(c.value);
+                }
+            }
+        
+        const currSymptomsChosen = document.getElementById("currentSymptoms");
+        const currSymptoms = [...currSymptomsChosen.options].filter(option => option.selected).map(option => option.value);
+        
+        const takingMeds = document.querySelectorAll("input[name = 'medications']");
+        let tm;
+        for (const t of takingMeds) {
+            if (t.checked) {
+                tm = t.value;
+                break;
+            }
+        }
+
+        let patientRecord = {
+            id: Date.now(),
+            firstName: document.getElementById("fName").value,
+            middleName: document.getElementById("mName").value,
+            lastName: document.getElementById("lName").value,
+            address: document.getElementById("inputAddress").value,
+            birthDate: document.getElementById("bDate").value,
+            contactNumber: document.getElementById("contactNumber").value,
+            gender:gen,
+            medicalHistory: chkValue,
+            currentSymptoms: currSymptoms,
+            takingMedications: tm,
+            ifYes: document.getElementById("distxt").value,
+        }
+
+        patientRecords.push(patientRecord);
+        console.table(patientRecords);
+        document.querySelector('#display pre').innerHTML = "\n"+ JSON.stringify(patientRecords, null, 2);
+        localStorage.setItem("patientRecord", JSON.stringify(patientRecords))      
+    }
+
+
+    // RETRIEVE DATA FROM LOCAL STORAGE
+
+    listPatientForm = (e) => {
+        e.preventDefault();
+
+        let newArray = [];
+        newArray = JSON.parse(localStorage.getItem("patientRecord"));
+
+            console.table(newArray);
+            let patientListTable = document.getElementById("patientListTable");
+
+            newArray.forEach((review,i) => { 
+                let listRows = patientListTable.insertRow(i+1);
+                // console.log(Object.keys(review).length);
+                let j = 0;
+                for(let property in review){
+                    let listCols = listRows.insertCell(j);
+                    listCols.innerHTML = review[property];
+                    j++;
+                }
+            });  
+    }
+    document.getElementById("listBtn").addEventListener("click", listPatientForm);
+
+
+// TAKING MEDICATION VALIDATION
+    function medP(medic) {
+        var m = document.getElementById("distxt");
+        if(medic.value == "yes"){
+            m.disabled = false;
+        }
+        else if (medic.value == "no") {
+            m.disabled = true;
+            m.value = null;
+        }
+    }
+</script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
