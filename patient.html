@@ -103,33 +103,31 @@
     </div>
 <br>
     <div class="container pt-5 bg-white shadow-lg rounded">
-    <button id="listBtn" class="btn btn-info text-white">Patient List</button>
-    <div class="table-responsive table-caption">
-        <caption>Click 'Patient List' button to show Local Storage data</caption>
-        <table class="table table-bordered" id="patientListTable" border="1">
-            <tr>
-                <th>Id</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Last Name</th>
-                <th>Address</th>
-                <th>Birthdate</th>
-                <th>Contact No.</th>
-                <th>Gender</th>
-                <th>Medical History</th>
-                <th>Current Symptoms</th>
-                <th>Taking Medications?</th>
-                <th>If Yes</th>
-            </tr>
-        </table>
-    </div>
-    
-    <div id="display">
-        <pre></pre>
-    </div>
+        <button id="listBtn" class="btn btn-info text-white">Patient List</button>
+        <div class="table-responsive table-caption">
+            <caption>Click 'Patient List' button to show Local Storage data</caption>
+            <table class="table table-bordered" id="patientListTable" border="1">
+                <tr>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Last Name</th>
+                    <th>Address</th>
+                    <th>Birthdate</th>
+                    <th>Contact No.</th>
+                    <th>Gender</th>
+                    <th>Medical History</th>
+                    <th>Current Symptoms</th>
+                    <th>Taking Medications?</th>
+                    <th>If Yes</th>
+                </tr>
+            </table>
+        </div>
     </div>
 
+
 <script>
+    let patientRecords = localStorage.getItem('patientRecord') ? JSON.parse(localStorage.getItem("patientRecord")) : [];
     sub = () => {
         var contact = document.getElementById("contactNumber").value;
         if(!/^(09|639)\d{9}$/.test(contact)) {
@@ -144,7 +142,7 @@
     }
 
 
-    let patientRecords =[];
+    // let patientRecords =[];
     function addpatientRecord(){
 
         const genderChoice = document.querySelectorAll("input[name = 'gender']");
@@ -193,13 +191,11 @@
 
         patientRecords.push(patientRecord);
         console.table(patientRecords);
-        document.querySelector('#display pre').innerHTML = "\n"+ JSON.stringify(patientRecords, null, 2);
         localStorage.setItem("patientRecord", JSON.stringify(patientRecords))      
     }
 
 
-    // RETRIEVE DATA FROM LOCAL STORAGE
-
+// RETRIEVE DATA FROM LOCAL STORAGE
     listPatientForm = (e) => {
         e.preventDefault();
 
